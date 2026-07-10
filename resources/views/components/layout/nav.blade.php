@@ -18,7 +18,7 @@
 
             @guest
                 <a href="/login" class="bg-base-100 rounded-t-none p-2">Sign In</a>
-                <a href="/register-key" class="btn-accent">Register</a>
+                <a href="/register/key" class="btn-accent">Register</a>
             @endguest
         </div>
     </div>
