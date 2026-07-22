@@ -1,0 +1,14 @@
+<x-layout>
+    Here you can login
+{{--    <x-form title="Login" description="Welcome back!">--}}
+{{--        <form action="/login" method="POST" class="mt-10 space-y-4">--}}
+{{--            @csrf--}}
+
+
+{{--            <x-form.field name="email" label="Email" type="email" />--}}
+{{--            <x-form.field name="password" label="Password" type="password" />--}}
+
+{{--            <button type="submit" class="btn mt-2 h-10 w-full" data-test="login-btn">Sign In</button>--}}
+{{--        </form>--}}
+{{--    </x-form>--}}
+</x-layout>
