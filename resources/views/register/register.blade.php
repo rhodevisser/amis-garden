@@ -29,8 +29,10 @@
         @csrf
 
         {{-- Name field --}}
-        <div class="form-group">
-            <label for="name">Full Name</label>
+        <div class="form-control">
+            <label class="label" for="name">
+                <span class="label-text">Full Name</span>
+            </label>
             {{-- old('name') keeps the value if validation fails --}}
             <input
                 type="text"
@@ -38,57 +40,67 @@
                 name="name"
                 value="{{ old('name') }}"
                 placeholder="Enter your full name"
+                class="input input-bordered"
                 required
                 autofocus
             >
         </div>
 
         {{-- Email field --}}
-        <div class="form-group">
-            <label for="email">Email Address</label>
+        <div class="form-control">
+            <label class="label" for="email">
+                <span class="label-text">Email Address</span>
+            </label>
             <input
                 type="email"
                 id="email"
                 name="email"
                 value="{{ old('email') }}"
                 placeholder="your.email@example.com"
+                class="input input-bordered"
                 required
             >
         </div>
 
         {{-- Password field --}}
-        <div class="form-group">
-            <label for="password">Password</label>
+        <div class="form-control">
+            <label class="label" for="password">
+                <span class="label-text">Password</span>
+            </label>
             <input
                 type="password"
                 id="password"
                 name="password"
                 placeholder="Minimum 8 characters"
+                class="input input-bordered"
                 required
             >
-            <small style="color: #666; display: block; margin-top: 5px;">
-                Password must be at least 8 characters long.
-            </small>
+            <label class="label">
+                <span class="label-text-alt">Password must be at least 8 characters long.</span>
+            </label>
         </div>
 
         {{-- Password confirmation field --}}
         {{-- Laravel checks that this matches the 'password' field (because we used 'confirmed' in validation) --}}
-        <div class="form-group">
-            <label for="password_confirmation">Confirm Password</label>
+        <div class="form-control">
+            <label class="label" for="password_confirmation">
+                <span class="label-text">Confirm Password</span>
+            </label>
             <input
                 type="password"
                 id="password_confirmation"
                 name="password_confirmation"
                 placeholder="Re-enter your password"
+                class="input input-bordered"
                 required
             >
         </div>
 
         <div style="margin-top: 20px;">
-            <button type="submit">Create Account</button>
+            <button type="submit" class="btn btn-primary">Create Account</button>
             {{-- Link back to key validation in case they want to use a different key --}}
             <a href="{{ route('register.key') }}" style="margin-left: 10px;">
-                <button type="button" class="btn-secondary">Use Different Key</button>
+                <button type="button" class="btn btn-secondary">Use Different Key</button>
             </a>
         </div>
     </form>

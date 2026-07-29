@@ -13,22 +13,25 @@
     <form method="POST" action="{{ route('register.validate-key') }}">
         @csrf
 
-        <div class="form-group">
-            <label for="key">Registration Key</label>
+        <div class="form-control">
+            <label class="label" for="key">
+                <span class="label-text">Registration Key</span>
+            </label>
             <input
                 type="text"
                 id="key"
                 name="key"
                 value="{{ old('key') }}"
                 placeholder="Enter your registration key"
+                class="input input-bordered"
                 required
                 autofocus
             >
-            <small style="color: #666; display: block; margin-top: 5px;">
-                You should have received this key personally.
-            </small>
+            <label class="label">
+                <span class="label-text-alt">You should have received this key personally.</span>
+            </label>
         </div>
 
-        <button type="submit">Continue to Registration</button>
+        <button type="submit" class="btn btn-primary">Continue to Registration</button>
     </form>
 </x-layout>
