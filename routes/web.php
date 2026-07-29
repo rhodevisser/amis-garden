@@ -28,7 +28,9 @@ Route::get('/register', function () {
 })->name('register.key');
 Route::post('/register/validate-key', RegisterKeyController::class)
     ->name('register.validate-key');
-Route::get('/register/form', [RegisterController::class, 'showRegistrationForm'])
-    ->name('register.form');
-Route::post('/register', [RegisterController::class, 'register'])
-    ->name('register.submit');
+Route::middleware('registration.key')->group(function () {
+    Route::get('/register/form', [RegisterController::class, 'showRegistrationForm'])
+        ->name('register.form');
+    Route::post('/register', [RegisterController::class, 'register'])
+        ->name('register.submit');
+});
