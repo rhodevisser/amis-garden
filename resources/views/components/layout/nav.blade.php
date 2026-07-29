@@ -1,4 +1,4 @@
-<nav class="border-b border-border px-6">
+<nav class="border-b border-base-300 px-6">
     <div class="max-w-7xl mx-auto h-16 flex items-center justify-between">
         <div>
             <a class="text-2xl"
@@ -17,8 +17,8 @@
             @endauth
 
             @guest
-                <a href="/login" class="bg-base-100 rounded-t-none p-2">Sign In</a>
-                <a href="/register/key" class="btn-accent">Register</a>
+                <a href="/login" class="btn btn-ghost">Sign In</a>
+                <a href="/register/key" class="btn btn-accent">Register</a>
             @endguest
         </div>
     </div>
