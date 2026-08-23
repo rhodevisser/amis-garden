@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RegisterKeyController;
 use Illuminate\Support\Facades\Route;
@@ -7,26 +8,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/register/key', function () {
     return view('register.key');
 });
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
-
-Route::post('/login', function () {
-    $attributes = request()->validate([
-        'email' => ['required', 'email'],
-        'password' => ['required'],
-    ]);
-
-    if (! auth()->attempt($attributes)) {
-        throw \Illuminate\Validation\ValidationException::withMessages([
-            'email' => 'Your provided credentials could not be verified.'
-        ]);
-    }
-
-    session()->regenerate();
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     return redirect('/')->with('success', 'Welcome back!');
 });
