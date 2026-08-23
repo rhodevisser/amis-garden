@@ -12,16 +12,24 @@ Route::get('/register/key', function () {
 });
 Route::get('/login', function () {
     return view('login');
+})->name('login');
+
+Route::post('/login', function () {
+    $attributes = request()->validate([
+        'email' => ['required', 'email'],
+        'password' => ['required'],
+    ]);
+
+    if (! auth()->attempt($attributes)) {
+        throw \Illuminate\Validation\ValidationException::withMessages([
+            'email' => 'Your provided credentials could not be verified.'
+        ]);
+    }
+
+    session()->regenerate();
+
+    return redirect('/')->with('success', 'Welcome back!');
 });
-
-
-/**
- * Registration Routes
- *
- * These routes handle the two-step registration process:
- * 1. User enters and validates their registration key
- * 2. User fills out registration form and creates account
- */
 
 Route::get('/register', function () {
     return view('register.key');

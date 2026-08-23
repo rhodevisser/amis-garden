@@ -10,7 +10,7 @@
         <div class="flex gap-x-4">
 
             @auth
-                <form action="/logout" method="POST">
+                <form action="/api/logout" method="POST">
                     @csrf
                     <button>Log Out</button>
                 </form>
