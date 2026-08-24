@@ -10,16 +10,15 @@ class AuthController extends Controller
 {
     public function login(LoginRequest $request)
     {
-        $attributes = $request->validate([]);
 
-       if (! auth()->attempt($attributes)) {
+       if (! auth()->attempt($request->validated(), $request->boolean('remember'))) {
            throw ValidationException::withMessages([
-               'email' => 'Your provided credentials could not be verified.'
+               'email' => __('auth.failed'),
            ]);
        }
         $request->session()->regenerate();
 
-        return redirect('/login');
+        return redirect('/');
     }
 
     public function logout(Request $request)
