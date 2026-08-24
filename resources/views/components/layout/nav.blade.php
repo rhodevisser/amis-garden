@@ -14,12 +14,11 @@
                     @csrf
                     <button>Log Out</button>
                 </form>
+                <a href="{{ route('user.show', auth()->user()) }}" class="btn btn-ghost">
+                    My Profile
+                </a>
             @endauth
 
-            @guest
-                <a href="/login" class="btn btn-ghost">Sign In</a>
-                <a href="/register/key" class="btn btn-accent">Register</a>
-            @endguest
         </div>
     </div>
 </nav>
