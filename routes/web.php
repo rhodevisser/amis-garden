@@ -15,17 +15,18 @@ Route::get('/register/key', function () {
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    return redirect('/')->with('success', 'Welcome back!');
-});
+Route::prefix('register')->name('register.')->group(function () {
+    Route::get('/', function () {
+        return view('register.key');
+    })->name('key');
 
-Route::get('/register', function () {
-    return view('register.key');
-})->name('register.key');
-Route::post('/register/validate-key', RegisterKeyController::class)
-    ->name('register.validate-key');
-Route::middleware('registration.key')->group(function () {
-    Route::get('/register/form', [RegisterController::class, 'showRegistrationForm'])
-        ->name('register.form');
-    Route::post('/register', [RegisterController::class, 'register'])
-        ->name('register.submit');
+    Route::post('/validate-key', RegisterKeyController::class)
+        ->name('validate-key');
+
+    Route::middleware('registration.key')->group(function () {
+        Route::get('/form', [RegisterController::class, 'showRegistrationForm'])
+            ->name('form');
+        Route::post('/', [RegisterController::class, 'register'])
+            ->name('submit');
+    });
 });
