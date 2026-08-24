@@ -3,16 +3,17 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RegisterKeyController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register/key', function () {
-    return view('register.key');
+Route::get('/login', function () {
+    return view('login');
 });
-Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::prefix('register')->name('register.')->group(function () {
@@ -30,3 +31,10 @@ Route::prefix('register')->name('register.')->group(function () {
             ->name('submit');
     });
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile/{user}', [UserController::class, 'show'])->name('user.show');
+    Route::get('/profile/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::patch('/profile/{user}', [UserController::class, 'update'])->name('user.update');
+});
+
