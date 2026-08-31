@@ -14,6 +14,13 @@ class PhotoController extends Controller
         ]);
     }
 
+    public function show(Photo $photo)
+    {
+        return view('photos.show', [
+            'photo' => $photo->load('user'),
+        ]);
+    }
+
     public function store(StorePhotoRequest $request)
     {
         $validated = $request->validated();

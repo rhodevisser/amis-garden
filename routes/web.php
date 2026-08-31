@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/photos', [PhotoController::class, 'index'])->name('photos.index');
     Route::post('/photos', [PhotoController::class, 'store'])->name('photos.store');
+    Route::get('/photos/{photo}', [PhotoController::class, 'show'])->name('photos.show');
     Route::delete('/photos/{photo}', [PhotoController::class, 'destroy'])->name('photos.destroy');
 });
 

@@ -43,14 +43,14 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 @forelse ($photos as $photo)
-                    <div class="bg-white rounded-3xl shadow-xl border-4 border-pink-200 overflow-hidden">
+                    <a href="{{ route('photos.show', $photo) }}" class="bg-white rounded-3xl shadow-xl border-4 border-pink-200 overflow-hidden block hover:shadow-2xl transition-shadow">
                         <img src="{{ Storage::url($photo->src) }}" alt="{{ $photo->alt }}" class="w-full h-56 object-cover" />
                         <div class="p-4">
                             <h3 class="text-lg font-bold text-pink-700">{{ $photo->title }}</h3>
                             <p class="text-sm text-pink-400 mt-1">{{ $photo->description }}</p>
                             <p class="text-xs text-pink-300 mt-2">Posted by {{ $photo->user->name }}</p>
                         </div>
-                    </div>
+                    </a>
                 @empty
                     <p class="text-center text-pink-400 col-span-2">No photos yet. Be the first to post one!</p>
                 @endforelse
