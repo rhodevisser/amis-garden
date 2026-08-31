@@ -24,22 +24,12 @@ class Key extends Model
         'expires_at' => 'datetime',
     ];
 
-    /**
-     * Check if this key has already been used
-     *
-     * @return bool True if key is used, false if still available
-     */
     public function isUsed(): bool
     {
         // If used_at is not null, the key has been used
         return !is_null($this->used_at);
     }
 
-    /**
-     * Check if this key has expired
-     *
-     * @return bool True if expired, false if still valid
-     */
     public function isExpired(): bool
     {
         // If expires_at is null, key never expires (return false)
@@ -47,25 +37,12 @@ class Key extends Model
         return $this->expires_at && $this->expires_at->isPast();
     }
 
-    /**
-     * Check if this key is valid (not used and not expired)
-     *
-     * @return bool True if key can be used, false otherwise
-     */
     public function isValid(): bool
     {
         // Key is valid if it's not used AND not expired
         return !$this->isUsed() && !$this->isExpired();
     }
 
-    /**
-     * Relationship: Get the user who used this key
-     *
-     * BelongsTo means "this key belongs to one user"
-     * Returns null if key hasn't been used yet
-     *
-     * Usage: $key->user->name (gets name of user who used this key)
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'used_by');
