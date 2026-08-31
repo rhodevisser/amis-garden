@@ -15,6 +15,11 @@ class PhotoPolicy
         //
     }
 
+    public function update(User $user, Photo $photo)
+    {
+        return $user->id === $photo->user_id;
+    }
+
     public function delete(User $user, Photo $photo)
     {
         return $user->id === $photo->user_id;
