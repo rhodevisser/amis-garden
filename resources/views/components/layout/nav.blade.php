@@ -10,6 +10,9 @@
         <div class="flex gap-x-4">
 
             @auth
+                <a href="{{ route('photos.index') }}" class="btn btn-ghost">
+                    Photos
+                </a>
                 <form action="/logout" class="btn btn-ghost" method="POST">
                     @csrf
                     <button>Log Out</button>
