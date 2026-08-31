@@ -48,7 +48,7 @@
                         <div class="p-4">
                             <h3 class="text-lg font-bold text-pink-700">{{ $photo->title }}</h3>
                             <p class="text-sm text-pink-400 mt-1">{{ $photo->description }}</p>
-                            <p class="text-xs text-pink-300 mt-2">Posted by {{ $photo->user->name }}</p>
+                            <p class="text-xs text-pink-300 mt-2">Posted by {{ $photo->user_id === auth()->id() ? 'you' : $photo->user->name }} &middot; {{ $photo->created_at->diffForHumans() }}</p>
                         </div>
                     </a>
                 @empty

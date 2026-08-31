@@ -10,7 +10,7 @@
                 <div class="p-6">
                     <h1 class="text-2xl font-extrabold text-pink-700">{{ $photo->title }}</h1>
                     <p class="text-sm text-pink-400 mt-2">{{ $photo->description }}</p>
-                    <p class="text-xs text-pink-300 mt-4">Posted by {{ $photo->user->name }}</p>
+                    <p class="text-xs text-pink-300 mt-4">Posted by {{ $photo->user_id === auth()->id() ? 'you' : $photo->user->name }} &middot; {{ $photo->created_at->diffForHumans() }}</p>
 
                     @canany(['update', 'delete'], $photo)
                         <div class="flex gap-3 mt-6">
