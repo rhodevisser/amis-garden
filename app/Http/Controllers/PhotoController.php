@@ -25,9 +25,9 @@ class PhotoController extends Controller
     {
         $validated = $request->validated();
 
-        $path = $request->file('photo')->store('photos', 'public');
+        $path = $request->file('photo')->store('photos');
 
-        auth()->user()->photos()->create([
+        $request->user()->photos()->create([
             'title' => $validated['title'],
             'alt' => $validated['alt'],
             'description' => $validated['description'],
