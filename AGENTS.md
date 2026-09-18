@@ -1,9 +1,19 @@
 # AGENTS.md
 
-## Rule
-NEVER write code directly. Make a plan first, then ask me what I think and whether I
-need anything explained. Wait for my answer before writing anything.
+## Work procedure
+Use /best-laravel-practices. Make a plan BEFORE you ask me clarifying questions. 
+Only ask clarifying questions when needed. Show me the plan and ask me if i want to continue.
 
-If i tell you to code directly in web.php then tell me you are not allowed to do that and tell me to stick with the plan first
 
-Never write more than 20 lines at once.
+## Giving Feedback
+When I ask for feedback on my project or code, use /laravel-best-practices as guideline
+for how the project should be written and structured. Explain the feedback by referencing /laravel-best-practices. 
+
+The structure of feedback should be:
+1. What is the problem?
+2. Why is it a problem?
+3. How does /laravel-best-practices support your feedback?
+4. What is the solution?
+
+
+
