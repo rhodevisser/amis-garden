@@ -1,8 +1,8 @@
 # Tasks: Photo Engagement Feature
 
-- [ ] Create database migrations for `photo_snacks`, `comments` and `comment_likes`.
-- [ ] Implement the `PhotoSnack`, `Comment` and `CommentLike` models with the correct relations.
-- [ ] Add relations to the `Photo` and `User` models.
+- [x] Create database migrations for `photo_snacks`, `comments` and `comment_likes`.
+- [x] Implement the `PhotoSnack`, `Comment` and `CommentLike` models with the correct relations.
+- [x] Add relations to the `Photo` and `User` models.
 - [ ] Create `PhotoSnackController` for the snack functionality (toggle).
 - [ ] Create `CommentController` for posting and deleting comments and replies.
 - [ ] Create `CommentLikeController` for liking comments (toggle).

@@ -5,21 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Photo extends Model
+class CommentLike extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
-    protected $fillable = ['title', 'src', 'alt', 'description', 'user_id'];
+    protected $fillable = ['user_id', 'comment_id'];
 
     protected $casts = [
         'user_id' => 'integer',
+        'comment_id' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'deleted_at' => 'datetime',
     ];
 
     public function user(): BelongsTo
@@ -27,14 +24,8 @@ class Photo extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function snacks(): HasMany
+    public function comment(): BelongsTo
     {
-        return $this->hasMany(PhotoSnack::class);
+        return $this->belongsTo(Comment::class);
     }
-
-    public function comments(): HasMany
-    {
-        return $this->hasMany(Comment::class);
-    }
-
 }

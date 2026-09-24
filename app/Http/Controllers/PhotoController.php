@@ -11,7 +11,7 @@ class PhotoController extends Controller
     public function index()
     {
         return view('photos.index', [
-            'photos' => Photo::newest()->with('user')->get(),
+            'photos' => Photo::latest()->with('user')->get(),
         ]);
     }
 
