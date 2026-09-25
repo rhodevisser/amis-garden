@@ -2,7 +2,7 @@
 
 ## Tech Stack
 - **Framework**: Laravel 13
-- **PHP**: 8.3
+- **PHP**: 8.4
 - **Admin Panel**: Filament 5
 - **Frontend**: Blade, Tailwind CSS 4, DaisyUI 5
 - **Build Tool**: Vite 8
@@ -12,6 +12,20 @@
 Ask clarifying questions when you are not sure. 
 
 
+
+## Language (hard rule)
+
+- The user may write prompts in **Dutch**. Reply in the language the user writes in.
+- Everything that lands in the repository MUST be in **English**, without exception:
+  - code (class, method, variable, route, table, column, config key, enum case names)
+  - comments and PHPDoc
+  - commit messages, branch names, PR titles and descriptions
+  - test names and test descriptions
+  - documentation, README, and any file under `.ai/`
+  - migrations, seeders, factories
+- User-facing copy (Blade views, validation messages, `lang/` files) is English too: `APP_LOCALE` is `en`. Only write another language when the user explicitly asks for a translation and it goes through `lang/`.
+- Never translate existing English identifiers or comments to Dutch, and never mix languages within one file.
+- Enforced by the `.githooks/pre-commit` hook, which scans added lines for Dutch words. Enable it once per clone with `composer hooks:install`. Override a false positive with `ALLOW_DUTCH=1 git commit ...`; fix the word list in the hook instead if it keeps misfiring.
 
 ===
 

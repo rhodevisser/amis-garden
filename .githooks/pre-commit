@@ -1,0 +1,60 @@
+#!/bin/sh
+#
+# Blocks commits that contain Dutch-language content.
+# See the "Language (hard rule)" section in AGENTS.md.
+#
+# Detection: every ADDED line in the staged diff is split on non-letters and on
+# camelCase boundaries, then each token is matched against a Dutch word list.
+# That way `$gebruikerNaam`, `verwijder_foto` and `// haal de foto op` all hit.
+#
+# Bypass (use sparingly): ALLOW_DUTCH=1 git commit ...   or   git commit --no-verify
+
+[ "$ALLOW_DUTCH" = "1" ] && exit 0
+
+DUTCH_WORDS='aangemaakt|aangepast|aanmaken|aanmelden|aanpassen|aantal|aanvraag|afbeelding|afbeeldingen|afmelden|alleen|altijd|anders|antwoord|bericht|berichten|beschrijving|bestand|bestanden|bewerken|bijvoorbeeld|binnen|controleer|controleren|daarna|daarom|deze|dit|echter|eerst|een|fout|foutmelding|fouten|foto|gebruiken|gebruiker|gebruikers|gebruikt|gegevens|geen|gemaakt|gewijzigd|hebben|heeft|het|hier|hoeveel|inloggen|instelling|instellingen|knop|kolom|kunnen|leden|lijst|maar|maken|melding|meldingen|moet|moeten|naam|namelijk|namen|niet|nooit|omdat|omschrijving|ongeldig|onjuist|ook|opgehaald|opgeslagen|ophalen|opmerking|opnieuw|opslaan|overzicht|pagina|reactie|reacties|regel|regels|standaard|titel|toegevoegd|toevoegen|tonen|tuin|tuinen|uitloggen|vandaag|veld|velden|verplicht|vervolgens|verwijder|verwijderd|verwijderen|verzoek|voorbeeld|vraag|vragen|waarde|waarden|waarom|waarschuwing|wanneer|weergeven|welke|werden|wijzigen|worden|wordt|zijn|zodat|zoeken|zullen'
+
+FILES=$(git diff --cached --name-only --diff-filter=ACMR -- \
+  '*.php' '*.js' '*.ts' '*.jsx' '*.tsx' '*.vue' '*.css' '*.md' '*.json' '*.yml' '*.yaml' '*.stub' \
+  ':(exclude).githooks/*' \
+  ':(exclude)vendor/*' \
+  ':(exclude)node_modules/*' \
+  ':(exclude)public/build/*' \
+  ':(exclude)*-lock.json')
+
+[ -z "$FILES" ] && exit 0
+
+REPORT=$(mktemp)
+trap 'rm -f "$REPORT"' EXIT
+
+echo "$FILES" | while IFS= read -r file; do
+  [ -z "$file" ] && continue
+  git diff --cached -U0 -- "$file" | sed -n 's/^+//p' | grep -v '^++' | while IFS= read -r line; do
+    hits=$(printf '%s\n' "$line" \
+      | sed -E 's/([a-z0-9])([A-Z])/\1 \2/g' \
+      | tr -c 'A-Za-z' ' ' \
+      | tr ' ' '\n' \
+      | tr 'A-Z' 'a-z' \
+      | grep -xE "$DUTCH_WORDS" \
+      | sort -u \
+      | tr '\n' ',' | sed 's/,$//; s/,/, /g')
+    if [ -n "$hits" ]; then
+      printf '%s\t%s\t%s\n' "$file" "$hits" "$(printf '%s' "$line" | cut -c1-100)" >> "$REPORT"
+    fi
+  done
+done
+
+[ -s "$REPORT" ] || exit 0
+
+echo ""
+echo "  COMMIT BLOCKED: Dutch text found in staged changes."
+echo "  The repository is English-only (AGENTS.md > Language (hard rule))."
+echo ""
+awk -F'\t' '
+  $1 != prev { printf "  %s\n", $1; prev = $1 }
+  { printf "      [%s]  %s\n", $2, $3 }
+' "$REPORT"
+echo ""
+echo "  Translate the lines above to English, then commit again."
+echo "  False positive? Bypass with:  ALLOW_DUTCH=1 git commit ..."
+echo ""
+exit 1
