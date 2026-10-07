@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -46,6 +48,15 @@ class Comment extends Model
     public function likes(): HasMany
     {
         return $this->hasMany(CommentLike::class);
+    }
+
+    /**
+     * Scope a query to only include top-level comments.
+     */
+    #[Scope]
+    protected function root(Builder $query): void
+    {
+        $query->whereNull('parent_id');
     }
 
     public function isReply(): bool
