@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CommentLikeController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\PhotoSnackController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RegisterKeyController;
 use App\Http\Controllers\UserController;
@@ -44,5 +47,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/photos/{photo}/edit', [PhotoController::class, 'edit'])->name('photos.edit');
     Route::patch('/photos/{photo}', [PhotoController::class, 'update'])->name('photos.update');
     Route::delete('/photos/{photo}', [PhotoController::class, 'destroy'])->name('photos.destroy');
-});
 
+    Route::post('/photos/{photo}/snack', PhotoSnackController::class)->name('photos.snack');
+
+    Route::post('/photos/{photo}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+    Route::post('/comments/{comment}/like', CommentLikeController::class)->name('comments.like');
+});
