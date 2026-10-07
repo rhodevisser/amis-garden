@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Models\Photo;
-use App\Models\PhotoSnack;
+use App\Models\Comment;
+use App\Models\CommentLike;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<PhotoSnack>
+ * @extends Factory<CommentLike>
  */
-class PhotoSnackFactory extends Factory
+class CommentLikeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,7 +21,7 @@ class PhotoSnackFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'photo_id' => Photo::factory(),
+            'comment_id' => Comment::factory(),
         ];
     }
 }
