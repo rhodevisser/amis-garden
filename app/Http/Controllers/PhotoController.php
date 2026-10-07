@@ -5,21 +5,41 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePhotoRequest;
 use App\Http\Requests\UpdatePhotoRequest;
 use App\Models\Photo;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class PhotoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         return view('photos.index', [
-            'photos' => Photo::latest()->with('user')->get(),
+            'photos' => Photo::latest()
+                ->with('user')
+                ->withCount('snacks')
+                ->withExists($this->snackedByCurrentUser($request->user()))
+                ->get(),
         ]);
     }
 
-    public function show(Photo $photo)
+    public function show(Request $request, Photo $photo)
     {
         return view('photos.show', [
-            'photo' => $photo->load('user'),
+            'photo' => $photo->load('user')
+                ->loadCount('snacks')
+                ->loadExists($this->snackedByCurrentUser($request->user())),
         ]);
+    }
+
+    /**
+     * Existence constraint that flags whether the given user already snacked the photo.
+     *
+     * @return array<string, \Closure>
+     */
+    private function snackedByCurrentUser(User $user): array
+    {
+        return [
+            'snacks as snacked_by_current_user' => fn ($query) => $query->whereBelongsTo($user),
+        ];
     }
 
     public function store(StorePhotoRequest $request)

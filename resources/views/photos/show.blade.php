@@ -12,6 +12,10 @@
                     <p class="text-sm text-pink-400 mt-2">{{ $photo->description }}</p>
                     <p class="text-xs text-pink-300 mt-4">Posted by {{ $photo->user_id === auth()->id() ? 'you' : $photo->user->name }} &middot; {{ $photo->created_at->diffForHumans() }}</p>
 
+                    <div class="mt-6">
+                        <x-photo.snack-button :$photo />
+                    </div>
+
                     @canany(['update', 'delete'], $photo)
                         <div class="flex gap-3 mt-6">
                             @can('update', $photo)
