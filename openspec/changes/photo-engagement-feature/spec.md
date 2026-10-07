@@ -44,10 +44,9 @@
 - BelongsTo `Comment`
 
 ## API / Web Routes
-- `POST /photos/{photo}/snack` -> `PhotoSnackController@toggle`
-- `POST /photos/{photo}/comments` -> `CommentController@store`
-- `POST /comments/{comment}/reply` -> `CommentController@reply`
-- `POST /comments/{comment}/like` -> `CommentLikeController@toggle`
+- `POST /photos/{photo}/snack` -> `PhotoSnackController` (invokable toggle)
+- `POST /photos/{photo}/comments` -> `CommentController@store` (also handles replies via an optional `parent_id`)
+- `POST /comments/{comment}/like` -> `CommentLikeController` (invokable toggle)
 - `DELETE /comments/{comment}` -> `CommentController@destroy`
 
 ## Authorization
