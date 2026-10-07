@@ -13,6 +13,7 @@
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "laravel/boost": "*",
         "laravel/pail": "^1.2.5",
         "laravel/pao": "^1.0.6",
         "laravel/pint": "^1.27",
@@ -40,7 +41,11 @@
             "@php artisan key:generate",
             "@php artisan migrate --force",
             "npm install --ignore-scripts",
-            "npm run build"
+            "npm run build",
+            "@hooks:install"
+        ],
+        "hooks:install": [
+            "git config core.hooksPath .githooks"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",

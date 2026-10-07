@@ -12,6 +12,10 @@
                     <p class="text-sm text-pink-400 mt-2">{{ $photo->description }}</p>
                     <p class="text-xs text-pink-300 mt-4">Posted by {{ $photo->user_id === auth()->id() ? 'you' : $photo->user->name }} &middot; {{ $photo->created_at->diffForHumans() }}</p>
 
+                    <div class="mt-6">
+                        <x-photo.snack-button :$photo />
+                    </div>
+
                     @canany(['update', 'delete'], $photo)
                         <div class="flex gap-3 mt-6">
                             @can('update', $photo)
@@ -30,6 +34,38 @@
                             @endcan
                         </div>
                     @endcanany
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-xl border-4 border-pink-200 p-6 space-y-6">
+                <h2 class="text-lg font-bold text-pink-600">Comments</h2>
+
+                @if ($errors->any())
+                    <div class="text-sm text-red-500">
+                        <ul class="list-disc list-inside">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <x-comment.form :$photo />
+
+                <div class="space-y-4">
+                    @forelse ($comments as $comment)
+                        <div class="space-y-3">
+                            <x-comment.item :$comment :$photo />
+
+                            @foreach ($comment->replies as $reply)
+                                <div class="ml-8">
+                                    <x-comment.item :comment="$reply" :$photo is-reply />
+                                </div>
+                            @endforeach
+                        </div>
+                    @empty
+                        <p class="text-sm text-pink-400">No comments yet. Be the first to say something!</p>
+                    @endforelse
                 </div>
             </div>
         </div>

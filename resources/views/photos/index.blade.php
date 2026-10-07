@@ -50,20 +50,25 @@
 
             <div class="space-y-8 max-w-xl mx-auto">
                 @forelse ($photos as $photo)
-                    <a href="{{ route('photos.show', $photo) }}" class="bg-white rounded-3xl shadow-xl border-4 border-pink-200 overflow-hidden block hover:shadow-2xl transition-shadow">
-                        <img src="{{ Storage::url($photo->src) }}" alt="{{ $photo->alt }}" class="w-full aspect-square object-cover" />
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold text-pink-700">{{ $photo->title }}</h3>
-                            <p class="text-pink-500 mt-2">{{ $photo->description }}</p>
-                            <div class="flex items-center mt-4 pt-4 border-t border-pink-100">
+                    <div class="bg-white rounded-3xl shadow-xl border-4 border-pink-200 overflow-hidden hover:shadow-2xl transition-shadow">
+                        <a href="{{ route('photos.show', $photo) }}" class="block">
+                            <img src="{{ Storage::url($photo->src) }}" alt="{{ $photo->alt }}" class="w-full aspect-square object-cover" />
+                            <div class="px-6 pt-6">
+                                <h3 class="text-xl font-bold text-pink-700">{{ $photo->title }}</h3>
+                                <p class="text-pink-500 mt-2">{{ $photo->description }}</p>
+                            </div>
+                        </a>
+                        <div class="px-6 pb-6">
+                            <div class="flex items-center justify-between gap-4 mt-4 pt-4 border-t border-pink-100">
                                 <div class="text-xs text-pink-400">
                                     <span class="font-bold">Posted by {{ $photo->user_id === auth()->id() ? 'you' : $photo->user->name }}</span>
                                     <span class="mx-1">&middot;</span>
                                     <span>{{ $photo->created_at->diffForHumans() }}</span>
                                 </div>
+                                <x-photo.snack-button :$photo />
                             </div>
                         </div>
-                    </a>
+                    </div>
                 @empty
                     <p class="text-center text-pink-400">No photos yet. Be the first to post one!</p>
                 @endforelse
