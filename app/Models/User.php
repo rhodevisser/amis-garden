@@ -6,6 +6,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -34,6 +35,29 @@ class User extends Authenticatable
     public function registrationKey(): HasOne
     {
         return $this->hasOne(Key::class, 'used_by');
+    }
+
+    public function pets(): HasMany
+    {
+        return $this->hasMany(Pet::class);
+    }
+
+    /**
+     * Get pets where this user is the primary owner.
+     */
+    public function ownedPets(): HasMany
+    {
+        return $this->hasMany(Pet::class);
+    }
+
+    /**
+     * Get pets where this user is a co-owner.
+     *
+     * @return BelongsToMany<Pet, static>
+     */
+    public function coOwnedPets(): BelongsToMany
+    {
+        return $this->belongsToMany(Pet::class, 'pet_user');
     }
 
     public function photos(): HasMany
