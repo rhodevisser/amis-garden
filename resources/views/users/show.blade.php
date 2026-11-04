@@ -40,6 +40,34 @@
                     </div>
                 </div>
 
+                {{-- Pets Section --}}
+                <div class="bg-pink-50/30 p-6 rounded-2xl border-2 border-pink-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xs font-bold text-pink-300 uppercase tracking-widest">My Pets 🐾</h3>
+                        @if ($user->id === auth()->id() && $user->pets()->count() < 5)
+                            <a href="{{ route('pets.create') }}" class="btn btn-sm bg-pink-400 hover:bg-pink-500 border-none text-white rounded-xl shadow-md">
+                                Add Pet
+                            </a>
+                        @endif
+                    </div>
+
+                    @if ($user->pets->isEmpty())
+                        <p class="text-sm text-pink-400 italic">No pets yet. Add your first furry friend!</p>
+                    @else
+                        <div class="grid grid-cols-2 gap-4">
+                            @foreach ($user->pets as $pet)
+                                <a href="{{ route('pets.show', $pet) }}" class="block bg-white rounded-xl border-2 border-pink-100 overflow-hidden hover:shadow-lg transition-shadow">
+                                    <img src="{{ Storage::url($pet->image) }}" alt="{{ $pet->name }}" class="w-full h-32 object-cover" />
+                                    <div class="p-3">
+                                        <p class="font-bold text-pink-700 text-sm">{{ $pet->name }}</p>
+                                        <p class="text-xs text-pink-400">{{ $pet->species }} • {{ $pet->breed }}</p>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+
                 <div class="flex flex-col gap-3">
                     <a href="{{ route('user.edit', $user) }}" class="btn bg-pink-500 hover:bg-pink-600 border-none text-white rounded-2xl shadow-lg shadow-pink-200 py-3 text-lg font-bold text-center">
                         Edit Profile ✨

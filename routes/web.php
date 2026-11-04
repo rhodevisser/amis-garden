@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentLikeController;
+use App\Http\Controllers\PetController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PhotoSnackController;
 use App\Http\Controllers\RegisterController;
@@ -53,4 +54,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/photos/{photo}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::post('/comments/{comment}/like', CommentLikeController::class)->name('comments.like');
+
+    Route::get('/pets/create', [PetController::class, 'create'])->name('pets.create');
+    Route::post('/pets', [PetController::class, 'store'])->name('pets.store');
+    Route::get('/pets/{pet}', [PetController::class, 'show'])->name('pets.show');
+    Route::get('/pets/{pet}/edit', [PetController::class, 'edit'])->name('pets.edit');
+    Route::patch('/pets/{pet}', [PetController::class, 'update'])->name('pets.update');
+    Route::delete('/pets/{pet}', [PetController::class, 'destroy'])->name('pets.destroy');
 });
