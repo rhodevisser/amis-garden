@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "laravel-boost": {
+      "command": "C:\\Users\\rosar\\.config\\herd\\bin\\php84\\php.exe",
+      "args": [
+        "C:\\Users\\rosar\\Herd\\www\\AmisGarden\\artisan",
+        "boost:mcp"
+      ]
+    },
+    "JetBrains IDE": {
+      "url": "http://127.0.0.1:64342/sse"
+    },
+    "phpstorm": {
+      "url": "http://127.0.0.1:64442/stream",
+      "type": "http"
+    }
+  }
+}

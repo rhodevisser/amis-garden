@@ -9,6 +9,9 @@
         },
         "JetBrains IDE": {
             "url": "http://127.0.0.1:64342/sse"
+        },
+        "phpstorm": {
+            "url": "http://127.0.0.1:64442/stream"
         }
     }
 }
