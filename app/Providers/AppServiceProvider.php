@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Prevent N+1-problem and eager loads relationships if that has not been done manually
-        model::automaticallyEagerLoadRelationships();
+        Model::automaticallyEagerLoadRelationships();
 
         Route::pattern('id', '[0-9]+');
 

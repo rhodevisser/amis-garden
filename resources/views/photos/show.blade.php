@@ -6,7 +6,7 @@
             </a>
 
             <div class="bg-white rounded-3xl shadow-xl border-4 border-pink-200 overflow-hidden">
-                <img src="{{ Storage::url($photo->src) }}" alt="{{ $photo->alt }}" class="w-full max-h-[70vh] object-cover" />
+                <img src="{{ $photo->src_url }}" alt="{{ $photo->alt }}" class="w-full max-h-[70vh] object-cover" />
                 <div class="p-6">
                     <h1 class="text-2xl font-extrabold text-pink-700">{{ $photo->title }}</h1>
                     <p class="text-sm text-pink-400 mt-2">{{ $photo->description }}</p>

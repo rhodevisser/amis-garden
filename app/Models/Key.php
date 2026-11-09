@@ -27,7 +27,7 @@ class Key extends Model
     public function isUsed(): bool
     {
         // If used_at is not null, the key has been used
-        return !is_null($this->used_at);
+        return ! is_null($this->used_at);
     }
 
     public function isExpired(): bool
@@ -40,7 +40,7 @@ class Key extends Model
     public function isValid(): bool
     {
         // Key is valid if it's not used AND not expired
-        return !$this->isUsed() && !$this->isExpired();
+        return ! $this->isUsed() && ! $this->isExpired();
     }
 
     public function user(): BelongsTo

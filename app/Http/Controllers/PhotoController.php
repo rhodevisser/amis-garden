@@ -92,7 +92,7 @@ class PhotoController extends Controller
     {
         $validated = $request->validated();
 
-        $path = $request->file('photo')->store('photos');
+        $path = $request->file('photo')->store('photos', 'public');
 
         $request->user()->photos()->create([
             'title' => $validated['title'],
@@ -120,7 +120,7 @@ class PhotoController extends Controller
         $validated = $request->validated();
 
         if ($request->hasFile('photo')) {
-            $validated['src'] = $request->file('photo')->store('photos');
+            $validated['src'] = $request->file('photo')->store('photos', 'public');
         }
 
         $photo->update($validated);

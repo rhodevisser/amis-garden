@@ -17,7 +17,7 @@ class PetController extends Controller
     {
         $validated = $request->validated();
 
-        $path = $request->file('image')->store('pets');
+        $path = $request->file('image')->store('pets', 'public');
 
         $request->user()->pets()->create([
             'name' => $validated['name'],
@@ -55,7 +55,7 @@ class PetController extends Controller
         $validated = $request->validated();
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('pets');
+            $validated['image'] = $request->file('image')->store('pets', 'public');
         } else {
             unset($validated['image']);
         }
