@@ -20,7 +20,7 @@ class PhotoFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(),
-            'src' => $this->faker->imageUrl(),
+            'src' => 'https://picsum.photos/seed/'.$this->faker->uuid.'/640/480',
             'alt' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
             'user_id' => User::factory(),

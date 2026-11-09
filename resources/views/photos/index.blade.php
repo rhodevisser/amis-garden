@@ -52,7 +52,7 @@
                 @forelse ($photos as $photo)
                     <div class="bg-white rounded-3xl shadow-xl border-4 border-pink-200 overflow-hidden hover:shadow-2xl transition-shadow">
                         <a href="{{ route('photos.show', $photo) }}" class="block">
-                            <img src="{{ Storage::url($photo->src) }}" alt="{{ $photo->alt }}" class="w-full aspect-square object-cover" />
+                            <img src="{{ $photo->src_url }}" alt="{{ $photo->alt }}" class="w-full aspect-square object-cover" />
                             <div class="px-6 pt-6">
                                 <h3 class="text-xl font-bold text-pink-700">{{ $photo->title }}</h3>
                                 <p class="text-pink-500 mt-2">{{ $photo->description }}</p>

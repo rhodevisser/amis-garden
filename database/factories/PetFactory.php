@@ -25,7 +25,7 @@ class PetFactory extends Factory
             'age' => $this->faker->numberBetween(1, 15),
             'gender' => $this->faker->boolean(),
             'description' => $this->faker->sentence(),
-            'image' => $this->faker->imageUrl(),
+            'image' => 'https://picsum.photos/seed/'.$this->faker->uuid.'/640/480',
             'user_id' => User::factory(),
         ];
     }

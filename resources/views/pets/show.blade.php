@@ -24,7 +24,7 @@
             <div class="space-y-6 relative">
                 {{-- Pet Photo --}}
                 <div class="rounded-2xl overflow-hidden border-4 border-pink-200 shadow-lg">
-                    <img src="{{ Storage::url($pet->image) }}" alt="{{ $pet->name }}" class="w-full h-64 object-cover" />
+                    <img src="{{ $pet->image_url }}" alt="{{ $pet->name }}" class="w-full h-64 object-cover" />
                 </div>
 
                 {{-- Pet Details --}}

@@ -144,7 +144,7 @@
                             Photo (leave empty to keep current photo)
                         </label>
                         <div class="mb-2">
-                            <img src="{{ Storage::url($pet->image) }}" alt="{{ $pet->name }}" class="w-24 h-24 object-cover rounded-xl border-2 border-pink-200" />
+                            <img src="{{ $pet->image_url }}" alt="{{ $pet->name }}" class="w-24 h-24 object-cover rounded-xl border-2 border-pink-200" />
                         </div>
                         <input
                             type="file"

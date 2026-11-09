@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class Photo extends Model
 {
@@ -37,4 +39,17 @@ class Photo extends Model
         return $this->hasMany(Comment::class);
     }
 
+    /**
+     * Get the URL for the photo source.
+     *
+     * Returns the raw URL for external images, or the storage URL for local files.
+     */
+    public function getSrcUrlAttribute(): string
+    {
+        if (Str::startsWith($this->src, ['http://', 'https://'])) {
+            return $this->src;
+        }
+
+        return Storage::url($this->src);
+    }
 }

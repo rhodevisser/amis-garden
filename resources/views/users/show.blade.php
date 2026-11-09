@@ -57,7 +57,7 @@
                         <div class="grid grid-cols-2 gap-4">
                             @foreach ($user->pets as $pet)
                                 <a href="{{ route('pets.show', $pet) }}" class="block bg-white rounded-xl border-2 border-pink-100 overflow-hidden hover:shadow-lg transition-shadow">
-                                    <img src="{{ Storage::url($pet->image) }}" alt="{{ $pet->name }}" class="w-full h-32 object-cover" />
+                                    <img src="{{ $pet->image_url }}" alt="{{ $pet->name }}" class="w-full h-32 object-cover" />
                                     <div class="p-3">
                                         <p class="font-bold text-pink-700 text-sm">{{ $pet->name }}</p>
                                         <p class="text-xs text-pink-400">{{ $pet->species }} • {{ $pet->breed }}</p>
