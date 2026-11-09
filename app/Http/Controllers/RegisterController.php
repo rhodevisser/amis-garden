@@ -48,7 +48,6 @@ class RegisterController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-
         $key->update([
             'used_by' => $user->id,
             'used_at' => now(),

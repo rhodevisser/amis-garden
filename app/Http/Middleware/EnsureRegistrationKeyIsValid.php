@@ -16,7 +16,7 @@ class EnsureRegistrationKeyIsValid
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->session()->has('registration_key_id')) {
+        if (! $request->session()->has('registration_key_id')) {
             return redirect()->route('register.key')->withErrors([
                 'key' => 'Please enter a valid registration key first.',
             ]);
@@ -25,7 +25,7 @@ class EnsureRegistrationKeyIsValid
         $keyId = $request->session()->get('registration_key_id');
         $key = Key::find($keyId);
 
-        if (!$key || !$key->isValid()) {
+        if (! $key || ! $key->isValid()) {
             $request->session()->forget('registration_key_id');
 
             return redirect()->route('register.key')->withErrors([

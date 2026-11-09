@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Key;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class KeySeeder extends Seeder
 {
@@ -45,7 +44,7 @@ class KeySeeder extends Seeder
         $this->command->info('Created 5 test registration keys!');
         $this->command->info('You can use any of these to test registration:');
         foreach ($testKeys as $key) {
-            $this->command->info('  - ' . $key);
+            $this->command->info('  - '.$key);
         }
     }
 }

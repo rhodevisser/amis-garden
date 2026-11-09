@@ -11,11 +11,11 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
 
-       if (! auth()->attempt($request->validated(), $request->boolean('remember'))) {
-           throw ValidationException::withMessages([
-               'email' => __('auth.failed'),
-           ]);
-       }
+        if (! auth()->attempt($request->validated(), $request->boolean('remember'))) {
+            throw ValidationException::withMessages([
+                'email' => __('auth.failed'),
+            ]);
+        }
         $request->session()->regenerate();
 
         return redirect('/');

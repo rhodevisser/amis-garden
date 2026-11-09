@@ -22,13 +22,13 @@ class RegisterKeyController extends Controller
 
         $key = Key::where('key', $validated['key'])->first();
 
-        if (!$key) {
+        if (! $key) {
             return back()->withErrors([
                 'key' => 'This registration key is not valid.',
             ])->withInput();
         }
 
-        if (!$key->isValid()) {
+        if (! $key->isValid()) {
             if ($key->isUsed()) {
                 $errorMessage = 'This registration key has already been used.';
             } else {
