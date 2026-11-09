@@ -10,14 +10,14 @@ class UserController extends Controller
     public function show(User $user)
     {
         return view('users.show', [
-            'user' => $user
+            'user' => $user->load('pets'),
         ]);
     }
 
     public function edit(User $user)
     {
         return view('users.edit', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
@@ -25,7 +25,7 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
         ]);
 
         $user->update($validated);
